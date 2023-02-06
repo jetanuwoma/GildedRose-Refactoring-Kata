@@ -37,6 +37,7 @@ class ItemService
     when 'Aged Brie'
       Brie.new(item).update
     when 'Sulfuras, Hand of Ragnaros'
+      Sulfuras.new(item)
     else
       # raise not supported
     end
@@ -56,7 +57,7 @@ end
 
 class Backstage < ItemService
   def update_quality
-    return item.quantity = 0 if item.sell_in >= 49
+    return item.quality = 0 if item.sell_in >= 49
 
     item.quality += \
       case item.sell_in
@@ -79,4 +80,10 @@ class Brie < ItemService
   end
 end
 
-class Sulfuras < ItemService; end
+class Sulfuras < ItemService
+
+  def initialize(item)
+    item.quality = 80
+    super(item)
+  end
+end
